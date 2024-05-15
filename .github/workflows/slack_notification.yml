@@ -1,5 +1,5 @@
 name: Code Coverage
-run-name:  Slack Failed&success notification :)
+run-name:  Slack Failed notification 
 
 on: [push]
 
@@ -11,6 +11,35 @@ jobs:
     - name: failing step
       #run: exit 1
       run: echo "Error"
+
+  # notification on success    
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'success') }}
+    needs:
+      - failing-job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          
   # notification on failure
   on-failure:
     runs-on: ubuntu-latest
