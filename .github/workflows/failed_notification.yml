@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: failing step
-      run: exit 1
+      #run: exit 1
+      run: echo "Error"
   # notification on failure
   on-failure:
     runs-on: ubuntu-latest
