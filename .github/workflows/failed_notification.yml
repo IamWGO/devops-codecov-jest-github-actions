@@ -1,5 +1,5 @@
 name: Code Coverage
-run-name: ${{ github.actor }} Code Coverage
+run-name:  Slack Failed notification 
 
 on: [push]
 
