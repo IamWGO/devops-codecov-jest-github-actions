@@ -1,0 +1,86 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions Pipline 🚀
+on: [push]
+jobs:
+  explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # # Add this step to send Slack notification on success
+      # - name: Notify on success
+      #   uses: slackapi/slack-github-action@v1.26.0
+      #   with:
+      #     channel-id: 'C073DKR20GL'
+      #     payload: |
+      #       {
+      #         "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  # notification on success
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'success') }}
+    needs:
+      - failing-job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  # notification on failure
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'failure' || needs.failing-job.result == 'timed_out') }}
+    needs:
+      - failing-job
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: slackapi/slack-github-action@v1.26.0
+      with:
+        channel-id: 'C073DKR20GL'
+        payload: |
+          {
+            "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

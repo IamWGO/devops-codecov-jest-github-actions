@@ -1,0 +1,130 @@
+name: Code Coverage
+run-name: ${{ github.actor }} Code Coverage
+
+on: [push]
+
+jobs:
+  # build
+  build:
+    runs-on: ubuntu-latest
+  #failing-job test
+  failing-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: failing step
+      run: exit 1
+  # notification on success
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'success') }}
+    needs:
+      - failing-job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+  # notification on failure
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'failure' || needs.failing-job.result == 'timed_out') }}
+    needs:
+      - failing-job
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: slackapi/slack-github-action@v1.26.0
+      with:
+        channel-id: 'C073DKR20GL'
+        payload: |
+          {
+            "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+# jobs:
+
+
+#   Explore-GitHub-Actions:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Post to a Slack channel
+#       id: slack
+#       uses: slackapi/slack-github-action@v1.26.0
+#       with:
+#         # Slack channel id, channel name, or user id to post message.
+#         # See also: https://api.slack.com/methods/chat.postMessage#channels
+#         channel-id: 'C073HPYT1AM'
+#         # For posting a rich message using Block Kit
+#         payload: |
+#           {
+#             "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+#             "blocks": [
+#               {
+#                 "type": "section",
+#                 "text": {
+#                   "type": "mrkdwn",
+#                   "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+#                 }
+#               }
+#             ]
+#           }
+#       env:
+#         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }} 
+
+  
+  
+#   on-failure:
+#     runs-on: ubuntu-latest
+#     if: github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'timed_out'
+#     steps:
+#       uses: slackapi/slack-github-action@v1.26.0
+#       with:
+#         channel-id: 'C073DKR20GL'
+#         payload: |
+#           {
+#             "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}",
+#             "blocks": [
+#               {
+#                 "type": "section",
+#                 "text": {
+#                   "type": "mrkdwn",
+#                   "text": "GitHub Action failed: ${{ github.run_id }}\n${{ github.run_url }}"
+#                 }
+#               }
+#             ]
+#           }
+#       env:
+#         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+
+
+
+ 
