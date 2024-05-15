@@ -3,25 +3,25 @@ name: Code Coverage
 on: [push, pull_request]
 
 jobs:
-  build:
+  Codecov-jest-github-actions:
+    build:
+      runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [20.x,21.x,22.x]
 
-    strategy:
-      matrix:
-        node-version: [20.x,21.x,22.x]
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run the tests
-      run: npm test -- --coverage
+      - name: Run the tests
+        run: npm test -- --coverage
