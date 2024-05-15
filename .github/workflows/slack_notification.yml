@@ -1,16 +1,16 @@
 name: Code Coverage
-run-name:  Slack Failed notification 
+run-name:  Testing Slack Failed&Success notification 
 
 on: [push]
 
 jobs:
-  #failing-job test
-  failing-job:
+  #run commands
+  run-job:
     runs-on: ubuntu-latest
     steps:
     - name: failing step
-      #run: exit 1
-      run: echo "Error"
+      #run: exit 1  # want failed report
+      run: echo "Error" #want success resport
 
   # notification on success    
   on-success:
@@ -26,20 +26,20 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "Testing Slack Failed&Success notification : ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "Testing Slack Failed&Success notification : ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          
+
   # notification on failure
   on-failure:
     runs-on: ubuntu-latest

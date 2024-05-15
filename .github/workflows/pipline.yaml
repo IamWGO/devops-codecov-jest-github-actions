@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 run-name: Testing out GitHub Actions Pipline 🚀
 on: [push]
 jobs:
-  explore-Pipline:
+  runs-job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,13 +12,13 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "GitHub Actions Pipline 🚀 succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "GitHub Actions Pipline 🚀 succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
