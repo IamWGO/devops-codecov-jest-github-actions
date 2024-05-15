@@ -1,5 +1,5 @@
 name: Code Coverage
-run-name: test-Code Coverage
+run-name: Code Coverage + slack notification
 
 on: [push]
 
@@ -26,11 +26,6 @@ jobs:
 
     - name: Run the tests
       run: npm test -- --coverage
-  # failing-job:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Run the tests
-  #       run: npm test -- --coverage
 
   # notification on success    
   on-success:

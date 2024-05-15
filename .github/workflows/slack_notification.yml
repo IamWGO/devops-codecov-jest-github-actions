@@ -1,5 +1,5 @@
 name: Code Coverage
-run-name:  Slack Failed&success notification 
+run-name:  Run command + slack notification 
 
 on: [push]
 
