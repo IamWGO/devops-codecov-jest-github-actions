@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   #failing-job test
-  failing-job:
+  runs-job:
     runs-on: ubuntu-latest
     steps:
     - name: failing step
