@@ -1,7 +1,10 @@
-name: Code Coverage & Notification
+name: 🛟Code Coverage & Notification
 run-name:  🛟Run command + slack notification 
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   #failing-job test

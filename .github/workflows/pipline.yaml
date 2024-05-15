@@ -1,6 +1,9 @@
 name: 📌Pipeline + notification
 run-name: 📌Testing out Pipline + success notification 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   runs-job:
     runs-on: ubuntu-latest
