@@ -4,9 +4,6 @@ on: [push]
 jobs:
   explore-Pipline:
     runs-on: ubuntu-latest
-    if: ${{ always() && (needs.failing-job.result == 'success') }}
-    needs:
-      - success-job
     steps:
       - uses: actions/checkout@v2
       - name: Slack Notification
