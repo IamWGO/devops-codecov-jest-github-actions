@@ -13,8 +13,8 @@ jobs:
         node-version: [20.x,21.x,22.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    # - name: Checkout repository
+    #   uses: actions/checkout@v2
 
     - name: Set up Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -26,3 +26,59 @@ jobs:
 
     - name: Run the tests
       run: npm test -- --coverage
+
+  # notification on success    
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'success') }}
+    needs:
+      - failing-job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "[OK] Slack Notification succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "[OK] Slack Notification succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          
+  # notification on failure
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ always() && (needs.failing-job.result == 'failure' || needs.failing-job.result == 'timed_out') }}
+    needs:
+      - failing-job
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: slackapi/slack-github-action@v1.26.0
+      with:
+        channel-id: 'C073DKR20GL'
+        payload: |
+          {
+            "text": "[x] Slack Notification failed: ${{ github.run_id }}\n${{ github.run_url }}",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "[x] Slack Notification failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
