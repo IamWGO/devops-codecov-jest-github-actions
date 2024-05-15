@@ -15,4 +15,4 @@ jobs:
         if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true && github.event.review.state == 'approved'
         run: |
           # Your actions when pull request is approved and merged
-          echo "Pull request approved and merged into main branch!"
+          echo "Lee!! Pull request approved and merged into main branch!"
