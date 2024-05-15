@@ -1,5 +1,5 @@
 name: Code Coverage
-run-name: Code Coverage + slack notification
+run-name: 🚩Code Coverage + slack notification
 
 on:
   push:
@@ -50,13 +50,13 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "[OK] test-Code Coverage succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "💯🎉 test-Code Coverage succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "[OK] test-Code Coverage succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "💯🎉 test-Code Coverage succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
@@ -77,16 +77,17 @@ jobs:
         channel-id: 'C073DKR20GL'
         payload: |
           {
-            "text": "[x] test-Code Coverage failed: ${{ github.run_id }}\n${{ github.run_url }}",
+            "text": "⛔ test-Code Coverage failed: ${{ github.run_id }}\n${{ github.run_url }}",
             "blocks": [
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "[x] test-Code Coverage failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                  "text": "⛔ test-Code Coverage failed: ${{ github.run_id }}\n${{ github.run_url }}"
                 }
               }
             ]
           }
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
