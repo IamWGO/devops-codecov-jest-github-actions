@@ -30,6 +30,9 @@ jobs:
     - name: Run the tests
       run: npm test -- --coverage
 
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+
   # notification on success    
   on-success:
     runs-on: ubuntu-latest
