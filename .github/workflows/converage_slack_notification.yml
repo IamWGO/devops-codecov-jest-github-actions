@@ -1,4 +1,4 @@
-name: Code Coverage
+name: 🚩Code Coverage
 run-name: 🚩Code Coverage + slack notification
 
 on:

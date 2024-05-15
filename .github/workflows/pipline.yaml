@@ -1,5 +1,5 @@
-name: GitHub Pipeline
-run-name: 🚀Testing out GitHub Actions Pipline + success notification 
+name: 📌Pipeline + notification
+run-name: 📌Testing out Pipline + success notification 
 on: [push]
 jobs:
   runs-job:
