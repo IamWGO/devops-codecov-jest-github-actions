@@ -1,5 +1,5 @@
-name: GitHub Pipeline
-run-name: Testing out GitHub Actions Pipline + success notification 🚀
+name: 📌Pipeline + notification
+run-name: 📌Testing out Pipline + success notification 
 on: [push]
 jobs:
   runs-job:
@@ -12,13 +12,13 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "GitHub Actions Pipline 🚀 succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "💯🎉GitHub Actions Pipline succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Actions Pipline 🚀 succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "💯🎉GitHub Actions Pipline succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
