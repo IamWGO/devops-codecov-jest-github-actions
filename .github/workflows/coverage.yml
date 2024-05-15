@@ -2,13 +2,7 @@ name: Code Coverage
 run-name: ${{ github.actor }} Code Coverage
 
 on:
-  workflow_run:
-    workflows: [Build and Test, Build and Test 2]
-    types: [completed]
-    branches: [main, prod]
-  push:
-    branches:
-      - main
+  workflows: {event:"push", branch:"main", when: "failed" }
 
 jobs:
   build:
