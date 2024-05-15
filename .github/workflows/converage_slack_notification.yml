@@ -1,7 +1,10 @@
 name: Code Coverage
 run-name: Code Coverage + slack notification
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   # build
