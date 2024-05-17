@@ -11,37 +11,22 @@ jobs:
     outputs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
-    - name: Checkout repository
+    - name: get bundleid
       id: get_bundleid
       run: |
         echo "bundle_id=1" >> $GITHUB_ENV
 
-# jobs:
-#   initialize:
-#     runs-on: ubuntu-latest
-#     outputs:
-#       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
-#     steps:
-#     - name: Checkout repository and create warehouse bundle
-#       id: get_bundleid
-#       uses: actions/checkout@v2
-#       run: |
-#         echo "bundle_id=1" >> $GITHUB_ENV
-#         # run: |
-#         #   echo '{"bundle_id": "my-bundle-id"}' > input.json
-#         #   jq -r .bundle_id < input.json > bundle_id
-#         #   echo "bundle_id=$(cat bundle_id)" >> $GITHUB_ENV
-      
  
-  # build-rocky:
-  #   needs: initialize
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
+  build-rocky:
+    needs: initialize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+    steps:
+    - name: build-rocky with initialize
+      run:  |
+        echo "initialize bundle_id=$BUNDLE_ID"
   
   # build-debian:
   #   needs: initialize
