@@ -16,7 +16,7 @@ jobs:
           echo '{"bundle_id": "xxx"}' > props.json
           jq -r '.bundle_id' > bundle_id
       id: get_bundleid
-      run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
+     # run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
  
   build-rocky:
     needs: initialize
