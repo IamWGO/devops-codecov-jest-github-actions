@@ -10,8 +10,7 @@ jobs:
     outputs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
-      
-      - name: Create warehouse bundle
+      - name: Checkout repository and create warehouse bundle
         id: get_bundleid
         uses: actions/checkout@v4
         run: |
