@@ -15,12 +15,13 @@ jobs:
     outputs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
+      
       - name: get bundleid
         id: get_bundleid
         run: |
           echo '{"bundle_id": "xxx"}' > props.json
           bundle_id=$(jq -r '.bundle_id' props.json)
-          echo "::add-mask::$bundle_id"
+          
           echo "bundle_id=$bundle_id" >> $GITHUB_OUTPUT
  
   build-1:
