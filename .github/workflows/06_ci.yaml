@@ -29,72 +29,24 @@ jobs:
       run:  |
         echo "initialize bundle_id=$BUNDLE_ID"
   
-  # build-debian:
-  #   needs: initialize
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-  #     PLATFORM: debian
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
-    
-  # docker-wgo-core:
-  #   needs: [initialize, build-rocky]
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
+  build-debian:
+    needs: initialize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+      PLATFORM: debian
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "build-debian >>bundle_id=$BUNDLE_ID, platform=$PLATFORM" 
 
-  # docker-wgo-core-hybrid:
-  #   needs: [initialize, build-rocky]
-  #   runs-on: github-8vcpu-ubuntu-2204
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
-  
-  # docker-core-manager:
-  #   needs: [initialize, build-rocky]
-  #   runs-on: github-8vcpu-ubuntu-2204
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
-  
-  # docker-wgo-core-modsec:
-  #   needs: [initialize, build-rocky]
-  #   runs-on: github-8vcpu-ubuntu-2204
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
-
-  # docker-wgo-core-hybrid-modsec:
-  #   needs: [initialize, build-rocky]
-  #   runs-on: github-8vcpu-ubuntu-2204
-  #   timeout-minutes: 10
-  #   env:
-  #     BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       run: echo "bundle_id=$BUNDLE_ID" >> $GITHUB_ENV
+    docker-wgo-core:
+    needs: initialize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+      PLATFORM: debian
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "docker-wgo-core >> bundle_id=$BUNDLE_ID"
