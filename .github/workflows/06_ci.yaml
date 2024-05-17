@@ -2,12 +2,10 @@
 name: 🌟 CI
 run-name: 🌟CI with bundle parameter
 
-on: [push]
-
-# on:
-#   push:
-#     branches:
-#       - main1
+on:
+  push:
+    branches:
+      - main1
 
 jobs:
   initialize:
