@@ -1,4 +1,4 @@
-## I am working on it not yet but it will be done soon.
+## How to create and pass initialize value in workflow
 name: 🌟 CI
 run-name: 🌟CI with bundle parameter
 
@@ -35,10 +35,9 @@ jobs:
     timeout-minutes: 10
     env:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
-      - run: echo "build-debian >>bundle_id=$BUNDLE_ID, platform=$PLATFORM" 
+      - run: echo "build-debian >>bundle_id=$BUNDLE_ID" 
 
   build-wgo-core:
     needs: initialize
@@ -46,7 +45,6 @@ jobs:
     timeout-minutes: 10
     env:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
       - run: echo "docker-wgo-core >> bundle_id=$BUNDLE_ID"
@@ -57,7 +55,6 @@ jobs:
     timeout-minutes: 10
     env:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
-      PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
       - run: echo "docker-wgo-core >>bundle_id=$BUNDLE_ID, platform=$PLATFORM"
