@@ -2,13 +2,12 @@
 name: 🌟 CI
 run-name: 🌟CI with bundle parameter
 
-# on: 
-#   push:
+on: [push]
 
-on:
-  push:
-    branches:
-      - main1
+# on:
+#   push:
+#     branches:
+#       - main1
 
 jobs:
   initialize:
@@ -21,6 +20,7 @@ jobs:
         run: |
           echo '{"bundle_id": "xxx"}' > props.json
           bundle_id=$(jq -r '.bundle_id' props.json)
+          echo "::add-mask::$bundle_id"
           echo "bundle_id=$bundle_id" >> $GITHUB_OUTPUT
  
   build-1:
