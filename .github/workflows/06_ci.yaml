@@ -13,7 +13,9 @@ jobs:
     steps:
     - name: get bundleid
       id: get_bundleid
-      run: echo "bundle_id=1001" >> $GITHUB_OUTPUT
+      run: |
+        jq -r .bundle_id > 1001
+        echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
 
  
   build-rocky:
