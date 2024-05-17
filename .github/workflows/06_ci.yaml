@@ -15,7 +15,7 @@ jobs:
       run: |
           echo '{"bundle_id": "xxx"}' > props.json
           jq -r '.bundle_id' > bundle_id
-          
+          echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
       id: get_bundleid
      # run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
  
