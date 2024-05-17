@@ -21,7 +21,7 @@ jobs:
         run: |
           echo '{"bundle_id": "xxx"}' > props.json
           bundle_id=$(jq -r '.bundle_id' props.json)
-          
+
           echo "bundle_id=$bundle_id" >> $GITHUB_OUTPUT
  
   build-1:
@@ -33,6 +33,7 @@ jobs:
     steps:
     - name: build-rocky with initialize
       run:  |
+        echo "::add-mask::$BUNDLE_ID"
         echo "build-1 bundle_id=$BUNDLE_ID"
   
   build-2:
