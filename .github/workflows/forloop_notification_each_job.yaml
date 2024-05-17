@@ -1,0 +1,100 @@
+name: 🛞Forloop - Slack notification
+run-name: 🛞Forloop - Slack notification
+
+on:
+  push:
+    branches:
+      - main1
+
+jobs:
+  # Main job
+  all-job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x, 21.x, 22.x]
+    outputs:
+      checkout: ${{ steps.checkout.outcome }}
+      setup: ${{ steps.setup.outcome }}
+      install: ${{ steps.install.outcome }}
+      test: ${{ steps.test.outcome }}
+    steps:
+    - name: Checkout repository
+      id: checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      id: setup
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      id: install
+      run: |
+        npm install
+        npm audit
+
+    - name: Run the tests
+      id: test
+      run: npm test -- --coverage
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+# Notification on success or specific step failure
+  notify-on-result:
+    runs-on: ubuntu-latest
+    needs: all-job
+    strategy:
+      matrix:
+        step-id: ["checkout", "setup", "install", "test"]
+    if: ${{ always() }}
+    steps:
+      - name: Determine Step Result
+        id: determine-result
+        run: echo "Step result: ${{ needs.all-job.outputs[matrix.step-id] }}"
+        
+      - name: Send Slack Notification on Success
+        if: ${{ needs.all-job.outputs[matrix.step-id] == 'success' }}
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "🛞Forloop \n 💯 Job ID : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [ 
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "💯 Job ID : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      
+      - name: Send Slack Notification on Failure
+        if: ${{ needs.all-job.outputs[matrix.step-id] != 'success' }}
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: 'C073DKR20GL'
+          payload: |
+            {
+              "text": "🛞Forloop \n ❌ Job ID : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}",
+              "blocks": [ 
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "❌ Job ID : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

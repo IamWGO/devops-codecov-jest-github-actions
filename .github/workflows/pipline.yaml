@@ -3,7 +3,7 @@ run-name: 📌Testing out Pipline + success notification
 on:
   push:
     branches:
-      - main
+      - main1
 jobs:
   runs-job:
     runs-on: ubuntu-latest
