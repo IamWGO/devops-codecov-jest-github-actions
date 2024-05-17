@@ -9,12 +9,11 @@ jobs:
   initialize:
     runs-on: ubuntu-latest
     outputs:
-      bundle_id: 1001
+      bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
     - name: get bundleid
       id: get_bundleid
-      run: |
-        echo "bundle_id=1" >> $GITHUB_ENV
+      run: echo "bundle_id=1001" >> $GITHUB_OUTPUT
 
  
   build-rocky:
