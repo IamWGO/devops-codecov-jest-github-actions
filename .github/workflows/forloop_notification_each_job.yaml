@@ -60,13 +60,13 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "🛞Forloop \n 💯 Job ID : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "🛞Forloop \n 💯 step-Id : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [ 
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "💯 Job ID : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "💯 step-Id : ${{ matrix.step-id }} succeeded: ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
@@ -81,13 +81,13 @@ jobs:
           channel-id: 'C073DKR20GL'
           payload: |
             {
-              "text": "🛞Forloop \n ❌ Job ID : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}",
+              "text": "🛞Forloop \n ❌ step-Id : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}",
               "blocks": [ 
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "❌ Job ID : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}"
+                    "text": "❌ step-Id : ${{ matrix.step-id }} failed: ${{ github.run_id }}\n${{ github.run_url }}"
                   }
                 }
               ]
