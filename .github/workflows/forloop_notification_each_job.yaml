@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Determine Step Result
         id: determine-result
-        run: echo "Step result: ${{ needs.all-job.outputs[matrix.step-id] }}"
+        run: echo "Step result:${{ needs.all-job.outputs[matrix.step-id] }}"
         
       - name: Send Slack Notification on Success
         if: ${{ needs.all-job.outputs[matrix.step-id] == 'success' }}
