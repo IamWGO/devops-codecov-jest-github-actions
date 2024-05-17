@@ -14,7 +14,7 @@ jobs:
     - name: get bundleid
       id: get_bundleid
       run: |
-        jq -r .bundle_id > 1001
+        jq -r '1001' > bundle_id
         echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
 
  
