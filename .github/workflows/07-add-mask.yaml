@@ -10,7 +10,7 @@ jobs:
     outputs:
       handle: ${{ steps.generate-secret.outputs.handle }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: some/secret-store@v1
     - name: generate secret
       id: generate-secret
       shell: bash
@@ -23,7 +23,7 @@ jobs:
     runs-on: macos-latest
     needs: secret-generator
     steps:
-    - uses: actions/checkout@v2
+    - uses: some/secret-store@v1
     - name: use secret
       shell: bash
       run: |
