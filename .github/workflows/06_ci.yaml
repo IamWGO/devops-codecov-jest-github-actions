@@ -50,7 +50,7 @@ jobs:
       - run: echo "docker-wgo-core >> bundle_id=$BUNDLE_ID"
 
   docker-wgo-core:
-    needs: [initialize, build-rocky, build-wgo-core]
+    needs: [initialize, build-rocky, build-debian, build-wgo-core]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
