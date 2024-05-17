@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository and create warehouse bundle
         id: get_bundleid
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
         run: |
           echo "bundle_id=1" >> $GITHUB_ENV
         # run: |
