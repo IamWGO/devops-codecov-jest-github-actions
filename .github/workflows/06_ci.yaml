@@ -11,13 +11,12 @@ jobs:
     outputs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
-    - name: get bundleid
-      run: |
+      - name: get bundleid
+        id: get_bundleid
+        run: |
           echo '{"bundle_id": "xxx"}' > props.json
-          jq -r '.bundle_id' > bundle_id
-          echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
-      id: get_bundleid
-     # run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
+          bundle_id=$(jq -r '.bundle_id' props.json)
+          echo "::set-output name=bundle_id::$bundle_id"
  
   build-rocky:
     needs: initialize
