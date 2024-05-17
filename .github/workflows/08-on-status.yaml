@@ -1,6 +1,6 @@
 on:
-  push
-  status
+  [push]
+  status:
 jobs:
   if_error_or_failure:
     runs-on: ubuntu-latest
