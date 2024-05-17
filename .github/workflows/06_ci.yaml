@@ -11,15 +11,25 @@ jobs:
     outputs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
-    - name: Checkout repository and create warehouse bundle
-      id: get_bundleid
+    - name: Checkout repository
+      id: checkout
       uses: actions/checkout@v2
-      run: |
-        echo "bundle_id=1" >> $GITHUB_ENV
-        # run: |
-        #   echo '{"bundle_id": "my-bundle-id"}' > input.json
-        #   jq -r .bundle_id < input.json > bundle_id
-        #   echo "bundle_id=$(cat bundle_id)" >> $GITHUB_ENV
+
+# jobs:
+#   initialize:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
+#     steps:
+#     - name: Checkout repository and create warehouse bundle
+#       id: get_bundleid
+#       uses: actions/checkout@v2
+#       run: |
+#         echo "bundle_id=1" >> $GITHUB_ENV
+#         # run: |
+#         #   echo '{"bundle_id": "my-bundle-id"}' > input.json
+#         #   jq -r .bundle_id < input.json > bundle_id
+#         #   echo "bundle_id=$(cat bundle_id)" >> $GITHUB_ENV
       
  
   # build-rocky:
