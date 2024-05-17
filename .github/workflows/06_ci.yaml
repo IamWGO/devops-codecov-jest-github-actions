@@ -31,7 +31,7 @@ jobs:
     env:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
     steps:
-    - name: build-rocky with initialize
+    - name: build-1 with add-mask
       run:  |
         echo "::add-mask::$BUNDLE_ID"
         echo "build-1 bundle_id=$BUNDLE_ID"
@@ -45,6 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "build-2 >>bundle_id=$BUNDLE_ID" 
+      - run: echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY  
 
   build-3:
     needs: initialize
