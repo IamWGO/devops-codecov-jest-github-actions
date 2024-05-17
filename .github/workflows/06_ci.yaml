@@ -9,7 +9,7 @@ jobs:
   initialize:
     runs-on: ubuntu-latest
     outputs:
-      bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
+      bundle_id: 1001
     steps:
     - name: get bundleid
       id: get_bundleid
