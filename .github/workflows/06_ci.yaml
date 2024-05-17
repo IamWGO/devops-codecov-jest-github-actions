@@ -27,7 +27,7 @@ jobs:
     steps:
     - name: build-rocky with initialize
       run:  |
-        echo "initialize bundle_id=$BUNDLE_ID"
+        echo "build-1 bundle_id=$BUNDLE_ID"
   
   build-2:
     needs: initialize
@@ -37,7 +37,7 @@ jobs:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
     steps:
       - uses: actions/checkout@v4
-      - run: echo "build-debian >>bundle_id=$BUNDLE_ID" 
+      - run: echo "build-2 >>bundle_id=$BUNDLE_ID" 
 
   build-3:
     needs: initialize
@@ -47,7 +47,7 @@ jobs:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
     steps:
       - uses: actions/checkout@v4
-      - run: echo "docker-wgo-core >> bundle_id=$BUNDLE_ID"
+      - run: echo "build-3 >> bundle_id=$BUNDLE_ID"
 
   final-build:
     needs: [initialize, build-1, build-2, build-3]
@@ -57,4 +57,4 @@ jobs:
       BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
     steps:
       - uses: actions/checkout@v4
-      - run: echo "docker-wgo-core >>bundle_id=$BUNDLE_ID, platform=$PLATFORM"
+      - run: echo "final-build >>bundle_id=$BUNDLE_ID, platform=$PLATFORM"
