@@ -12,8 +12,7 @@ jobs:
       bundle_id: ${{ steps.get_bundleid.outputs.bundle_id }}
     steps:
     - name: Checkout repository
-      id: checkout
-      uses: actions/checkout@v2
+      id: get_bundleid
       run: |
         echo "bundle_id=1" >> $GITHUB_ENV
 
