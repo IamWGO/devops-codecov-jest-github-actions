@@ -53,10 +53,6 @@ jobs:
         step-id: ["checkout", "setup", "install", "test"]
     if: ${{ always() }}
     steps:
-      - name: Determine Step Result
-        id: determine-result
-        run: echo "Step result:${{ needs.all-job.outputs[matrix.step-id] }}"
-        
       - name: Send Slack Notification on Success
         if: ${{ needs.all-job.outputs[matrix.step-id] == 'success' }}
         uses: slackapi/slack-github-action@v1.26.0
