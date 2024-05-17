@@ -10,9 +10,9 @@ jobs:
   # Main job
   all-job:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x, 21.x, 22.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [20.x, 21.x, 22.x]
     outputs:
       checkout: ${{ steps.checkout.outcome }}
       setup: ${{ steps.setup.outcome }}
@@ -23,11 +23,17 @@ jobs:
       id: checkout
       uses: actions/checkout@v2
 
-    - name: Set up Node.js ${{ matrix.node-version }}
+    # - name: Set up Node.js ${{ matrix.node-version }}
+    #   id: setup
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    
+    - name: Set up Node.js
       id: setup
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 20.9.0
 
     - name: Install dependencies
       id: install
