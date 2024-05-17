@@ -16,14 +16,14 @@ jobs:
         run: |
           echo '{"bundle_id": "xxx"}' > props.json
           bundle_id=$(jq -r '.bundle_id' props.json)
-          echo "::set-env name=BUNDLE_ID::$bundle_id"
+          echo "::set-output name=bundle_id::$bundle_id"
  
   build-rocky:
     needs: initialize
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # env:
-    #   BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+    env:
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
     steps:
     - name: build-rocky with initialize
       run:  |
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      # BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
       PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
@@ -45,18 +45,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      # BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
       PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
-      - run: echo "build-wgo-core >> bundle_id=$BUNDLE_ID"
+      - run: echo "docker-wgo-core >> bundle_id=$BUNDLE_ID"
 
   docker-wgo-core:
     needs: [initialize, build-rocky, build-wgo-core]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      # BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
+      BUNDLE_ID: ${{needs.initialize.outputs.bundle_id}}
       PLATFORM: debian
     steps:
       - uses: actions/checkout@v4
