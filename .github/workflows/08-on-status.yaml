@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: reviewdog
-        run: echo "$github.event.state"
+        run: echo "${{ github.event.state }}"
 
   if_error_or_failure:
     runs-on: ubuntu-latest
