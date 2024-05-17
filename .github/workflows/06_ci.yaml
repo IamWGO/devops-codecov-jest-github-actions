@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: echo "build-debian >>bundle_id=$BUNDLE_ID, platform=$PLATFORM" 
 
-    docker-wgo-core:
+  docker-wgo-core:
     needs: initialize
     runs-on: ubuntu-latest
     timeout-minutes: 10
