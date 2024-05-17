@@ -4,7 +4,7 @@ run-name: 🛞Forloop - Slack notification
 on:
   push:
     branches:
-      - main
+      - main1
 
 jobs:
   # Main job

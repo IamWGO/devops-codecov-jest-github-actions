@@ -1,6 +1,8 @@
 name: 🌟 CI
 run-name: 🌟Forloop - Slack notification
-on : [push]
+
+on: 
+  push:
 
 jobs:
   initialize:
@@ -11,10 +13,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create warehouse bundle
         run: |
-        echo '{"bundle_id": "my-bundle-id"}' > input.json
-        jq -r .bundle_id < input.json > bundle_id
+          echo '{"bundle_id": "my-bundle-id"}' > input.json
+          jq -r .bundle_id < input.json > bundle_id
       - id: get_bundleid
-        run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_OUTPUT
+        run: echo "bundle_id=$(cat bundle_id)" >> $GITHUB_ENV
+      - name: Set output
  
   build-rocky:
     needs: initialize
