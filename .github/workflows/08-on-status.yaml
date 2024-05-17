@@ -12,6 +12,8 @@ jobs:
         run: |
           echo The status is error or failed: $DESCRIPTION
 
+  if_success:
+    runs-on: ubuntu-latest
     if: >-
       github.event.state == 'success'
     steps:
