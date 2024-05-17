@@ -2,12 +2,15 @@
 #pass a masked secret between jobs or workflows,
 #you should store the secret in a store and then retrieve it in the subsequent job or workflow. 
 
+name: 🛞Add Mask
+run-name: 🛞 Add Mask ***
+
 # on: push
 
 on:
   push:
     branches:
-      - main1
+      - main
 
 jobs:
   generate-a-secret-output:
